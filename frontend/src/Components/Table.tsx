@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { MemoTableRow } from "./TableRow"
 import { Row } from "../Models/Row"
 import { v4 as uuidv4 } from "uuid"
+import { importRow } from "../Utilities/ImportExport"
 
 export const Table = () => {
 
@@ -35,6 +36,17 @@ export const Table = () => {
                     ...row, 
                     show: true
                 }
+            })
+        })
+    }
+
+    const handleImportRow = (): void => {
+        importRow((newRow: Row) => {
+            setRows((oldRows) => {
+                return [
+                    ...oldRows,
+                    newRow
+                ]
             })
         })
     }
@@ -89,6 +101,11 @@ export const Table = () => {
                             onClick={handleShowAllRows}
                         >
                             Show All Recipes
+                        </button>
+                        <button 
+                            onClick={handleImportRow}    
+                        >
+                            Import Recipe
                         </button>
                     </td>
                 </tr>

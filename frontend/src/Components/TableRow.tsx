@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react"
 import { MaterialTable } from "./MaterialTable"
 import { Row } from "../Models/Row"
 import { MemoizedRecipeName } from "./RecipeName"
-import { exportRow } from "../Utilities/Exporter"
+import { exportRow } from "../Utilities/ImportExport"
 
 interface TableRowProps {
     initialRowState: Row;
