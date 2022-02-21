@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+}
+
+@mixin centerTextAndColor($color: inherit) {
+    text-align: center;
+    color: $color;
+}
+
+@mixin noBorderOutline() {
+    outline: none;
+    border: none;
+}
+
+@mixin noMarginOrPadding() {
+    margin: 0px;
+    padding: 0px;
+}
+
+.App > header {
+    @include centerTextAndColor();
+}
+
+.App > header > h1 {
+    font-size: 24px;
+    color: rgb(22, 101, 153);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+textarea {
+    @include noBorderOutline();
+    overflow: auto;
+    resize: none;
+    scrollbar-width: thin;
+}
+
+.recipeTable {
+    margin: 0 auto;
+}
+
+.recipeTable > thead {
+    background-color:rgb(100, 216, 106);
+    color: white;
+}
+
+.recipeTable > thead > tr > th {
+    padding: 12px;
+}
+
+.recipeTable > tbody > tr:nth-child(odd) { 
+    background-color: rgb(245, 245, 245);
+}
+
+.recipeTable > tbody > tr {
+    opacity: 0.95;
+}
+
+.recipeTable > tbody > tr:hover {
+    opacity: 1;
+}
+
+td.recipeTable {
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.recipeName {
+    text-align: center;
+}
+
+.recipeName textarea {
+    @include centerTextAndColor(rgb(202, 49, 49));
+    background-color: inherit;
+}
+
+
+.materials {
+
+}
+
+.materialsTable {
+    @include noBorderOutline();
+    width: 100%;
+    color: greenyellow;
+}
+
+.materialsTable > thead {
+    background-color:rgb(22, 101, 153);
+    color: white;
+}
+
+.materialsName {
+    @include noBorderOutline();
+}
+
+.materialsQuantity {
+    @include noBorderOutline();
+    width: 4rem;
+}
+
+.materialsPrice {
+    @include noBorderOutline();
+    max-width: 6.2rem;
+}
+
+.materialsAddNewRowBtn {
+    color: rgb(43, 138, 201);
+    width: 100%;
+    @include noBorderOutline();
+    font-weight: bold;
+    padding: 0.1rem;
+}
+
+.materialsRowDeletebtn {
+    @include noBorderOutline();
+    background-color: inherit;
+}
+
+.materialsCost {
+    @include centerTextAndColor(red);
+}
+
+.marketPrice {
+    text-align: center;
+    @include centerTextAndColor(green);
+}
+
+.marketPrice input {
+    @include centerTextAndColor(green);
+    @include noBorderOutline();
+    width: 90%;
+    border-bottom: 1px solid black;
+    background-color: inherit;
+}
+
+.tax {
+    text-align: center;
+    color: red;
+}
+
+.profit {
+    @include centerTextAndColor();
+}
+
+.rowOptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.rowOptions button {
+    @include noBorderOutline();
+}
+
+.deletebtn {
+    color: rgb(250, 34, 34);
+}

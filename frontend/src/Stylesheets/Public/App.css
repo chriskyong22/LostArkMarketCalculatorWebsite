@@ -1,0 +1,159 @@
+* {
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 16px;
+}
+
+.App > header {
+  text-align: center;
+  color: inherit;
+}
+
+.App > header > h1 {
+  font-size: 24px;
+  color: #166599;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+textarea {
+  outline: none;
+  border: none;
+  overflow: auto;
+  resize: none;
+  scrollbar-width: thin;
+}
+
+.recipeTable {
+  margin: 0 auto;
+}
+
+.recipeTable > thead {
+  background-color: #64d86a;
+  color: white;
+}
+
+.recipeTable > thead > tr > th {
+  padding: 12px;
+}
+
+.recipeTable > tbody > tr:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+.recipeTable > tbody > tr {
+  opacity: 0.95;
+}
+
+.recipeTable > tbody > tr:hover {
+  opacity: 1;
+}
+
+td.recipeTable {
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.recipeName {
+  text-align: center;
+}
+
+.recipeName textarea {
+  text-align: center;
+  color: #ca3131;
+  background-color: inherit;
+}
+
+.materialsTable {
+  outline: none;
+  border: none;
+  width: 100%;
+  color: greenyellow;
+}
+
+.materialsTable > thead {
+  background-color: #166599;
+  color: white;
+}
+
+.materialsName {
+  outline: none;
+  border: none;
+}
+
+.materialsQuantity {
+  outline: none;
+  border: none;
+  width: 4rem;
+}
+
+.materialsPrice {
+  outline: none;
+  border: none;
+  max-width: 6.2rem;
+}
+
+.materialsAddNewRowBtn {
+  color: #2b8ac9;
+  width: 100%;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  padding: 0.1rem;
+}
+
+.materialsRowDeletebtn {
+  outline: none;
+  border: none;
+  background-color: inherit;
+}
+
+.materialsCost {
+  text-align: center;
+  color: red;
+}
+
+.marketPrice {
+  text-align: center;
+  text-align: center;
+  color: green;
+}
+
+.marketPrice input {
+  text-align: center;
+  color: green;
+  outline: none;
+  border: none;
+  width: 90%;
+  border-bottom: 1px solid black;
+  background-color: inherit;
+}
+
+.tax {
+  text-align: center;
+  color: red;
+}
+
+.profit {
+  text-align: center;
+  color: inherit;
+}
+
+.rowOptions {
+  display: flex;
+  flex-direction: column;
+}
+
+.rowOptions button {
+  outline: none;
+  border: none;
+}
+
+.deletebtn {
+  color: #fa2222;
+}
+
+/*# sourceMappingURL=App.css.map */
