@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/LostArkMarketCalculatorWebsite/static/css/main.d93febc7.css",
+    "main.js": "/LostArkMarketCalculatorWebsite/static/js/main.7c8bedba.js",
+    "static/js/787.cda612ba.chunk.js": "/LostArkMarketCalculatorWebsite/static/js/787.cda612ba.chunk.js",
+    "index.html": "/LostArkMarketCalculatorWebsite/index.html",
+    "main.d93febc7.css.map": "/LostArkMarketCalculatorWebsite/static/css/main.d93febc7.css.map",
+    "main.7c8bedba.js.map": "/LostArkMarketCalculatorWebsite/static/js/main.7c8bedba.js.map",
+    "787.cda612ba.chunk.js.map": "/LostArkMarketCalculatorWebsite/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d93febc7.css",
+    "static/js/main.7c8bedba.js"
+  ]
+}
