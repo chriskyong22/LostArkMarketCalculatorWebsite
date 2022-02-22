@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { MaterialRows } from "../Models/Row"
+import { calculateMaterialCost } from "../Utilities/ItemCalculations"
 import { MaterialItemName } from "./MaterialItemName" 
 import { MaterialItemPriceAndQuantity } from "./MaterialItemPriceAndQuantity"
 import { Row } from "../Models/Row"
@@ -15,6 +16,7 @@ interface MaterialTableProps {
 export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMaterialCost, initialMaterials }) => {
 
     const [items, setItems] = useState<MaterialRows>(initialMaterials);
+    const [showItems, setShowItems] = useState<boolean>(true);
 
     const addNewItem = () => {
         setItems((oldRows) => {
@@ -29,6 +31,7 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
                 }
             ]
         })
+        setShowItems(true);
     }
 
     useEffect(() => {
@@ -38,7 +41,7 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
                 materials: items
             }
         })
-    }, [items])
+    }, [items, setMaterials])
     
     const handleDeleteRow = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const id = event.currentTarget.name;
@@ -54,19 +57,23 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
         })
     }
 
-    const calculateMaterialCost = () => {
-        setMaterialCost(items.reduce((total, row) => {
-            return total + (row.price * row.quantity);
-        }, 0));
+    const handleMaterialCost = () => {
+        setMaterialCost(calculateMaterialCost(items));
     }
 
     useEffect(() => {
-        calculateMaterialCost();
-    }, [items])
+        handleMaterialCost();
+    }, [items, setMaterialCost])
+
+    const toggleShowItems = () => {
+        setShowItems((oldShowItems) => !oldShowItems);
+    }
 
     return (
         <table className="materialsTable">
-            <thead>
+            <thead
+                onClick={toggleShowItems}
+            >
                 <tr>
                     <th>
                         Item Name
@@ -77,13 +84,15 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
                     <th>
                         Price
                     </th>
-                    <th>
-
+                    <th
+                        title={showItems ? "Hide Items" : "Show Items"}
+                    >
+                        {showItems ? "-" : "+"}
                     </th>
                 </tr>
             </thead>
             <tbody>
-                {
+                { showItems && 
                     items.map((item) => {
                         return (
                             <tr key={item.id}>
@@ -103,11 +112,11 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
                                 <td>
                                     <button
                                         className="materialsRowDeletebtn deletebtn"
-                                        title={"Remove row"}
+                                        title={"Delete Item"}
                                         name={item.id}
                                         onClick={handleDeleteRow}
                                     >
-                                        [D]
+                                        X
                                     </button>
                                 </td>
                             </tr>

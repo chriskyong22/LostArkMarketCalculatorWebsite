@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { MemoTableRow } from "./TableRow"
 import { Row } from "../Models/Row"
+import { calculateMaterialCost } from "../Utilities/ItemCalculations"
 import { v4 as uuidv4 } from "uuid"
-import { importRow } from "../Utilities/ImportExport"
+import { exportRows, importRows } from "../Utilities/ImportExport"
 
 export const Table = () => {
 
@@ -40,14 +41,71 @@ export const Table = () => {
         })
     }
 
-    const handleImportRow = (): void => {
-        importRow((newRow: Row) => {
+    // TODO: handle duplicate imports (delete one of the duplicates)
+    const handleImportRows = (): void => {
+        importRows((newRow: Row[]) => {
             setRows((oldRows) => {
                 return [
                     ...oldRows,
-                    newRow
+                    ...newRow
                 ]
             })
+        })
+    }
+
+    const handleExportRows = (): void => {
+        exportRows(rows);
+    }
+
+    const sortByRecipeName = () => {
+        console.log("Sorting by Recipe Name");
+        setRows((oldRows) => {
+            let sortedRows = [...oldRows]
+            sortedRows.sort((row1: Row, row2: Row) => {
+                if (row1.recipeName < row2.recipeName) {
+                    return -1
+                } else if (row1.recipeName > row2.recipeName) {
+                    return 1
+                } else {
+                    return 0;
+                }
+            })
+            return sortedRows;
+        })
+    }
+
+    const sortByMaterialCost = () => {
+        console.log("Sorting by Material Cost");
+        setRows((oldRows) => {
+            let sortedRows = [...oldRows]
+            sortedRows.sort((row1: Row, row2: Row) => {
+                const row1MaterialCost = calculateMaterialCost(row1.materials);
+                const row2MaterialCost = calculateMaterialCost(row2.materials);
+                if (row1MaterialCost < row2MaterialCost) {
+                    return -1
+                } else if (row1MaterialCost > row2MaterialCost) {
+                    return 1
+                } else {
+                    return 0;
+                }
+            })
+            return sortedRows;
+        })
+    }
+
+    const sortByMarketPrice = () => {
+        setRows((oldRows) => {
+            let sortedRows = [...oldRows]
+            sortedRows.sort((row1: Row, row2: Row) => {
+                if (row1.marketPrice < row2.marketPrice) {
+                    return -1
+                } else if (row1.marketPrice > row2.marketPrice) {
+                    return 1
+                } else {
+                    return 0;
+                }
+            })
+            return sortedRows;
         })
     }
 
@@ -55,16 +113,22 @@ export const Table = () => {
         <table className="recipeTable">
             <thead>
                 <tr>
-                    <th>
+                    <th
+                        onClick={sortByRecipeName}
+                    >
                         Recipe Name
                     </th>
                     <th>
                         Materials
                     </th>
-                    <th>
+                    <th
+                        onClick={sortByMaterialCost}
+                    >
                         Cost of Materials
                     </th>
-                    <th>
+                    <th
+                        onClick={sortByMarketPrice}
+                    >
                         Market Price
                     </th>
                     <th>
@@ -103,9 +167,14 @@ export const Table = () => {
                             Show All Recipes
                         </button>
                         <button 
-                            onClick={handleImportRow}    
+                            onClick={handleImportRows}    
                         >
-                            Import Recipe
+                            Import Recipe(s)
+                        </button>
+                        <button
+                            onClick={handleExportRows}
+                        >
+                            Export All Recipes
                         </button>
                     </td>
                 </tr>

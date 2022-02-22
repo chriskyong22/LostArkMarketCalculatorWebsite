@@ -32,6 +32,7 @@ export const MaterialItemName: React.FC<MaterialItemNameProps> = ({ initialName,
 
     return (
         <input
+            className="materialsName"
             placeholder="Item Name"
             value={value}
             onChange={handleChange}

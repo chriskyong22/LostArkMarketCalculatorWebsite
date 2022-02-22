@@ -1,8 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { MaterialTable } from "./MaterialTable"
 import { Row } from "../Models/Row"
 import { MemoizedRecipeName } from "./RecipeName"
+import { debounce } from "../Utilities/debounce"
 import { exportRow } from "../Utilities/ImportExport"
+import { calculateProfit, calculateTax } from "../Utilities/ItemCalculations"
 
 interface TableRowProps {
     initialRowState: Row;
@@ -23,7 +25,8 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
                 return row;
             })
         })
-    }, [currentRow])
+        // TODO: update the local database.
+    }, [currentRow, setRows])
 
     const handleHide = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setCurrentRow((oldCurrentRow) => {
@@ -42,26 +45,25 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
         })
     }
 
-    const calculateTax = (): number => {
-        const selling = parseFloat(marketPrice);
-        const TRANSACTION_FEE = 0.05
-        if (selling === 1) {
-            return 0
-        } else {
-            return Math.ceil(selling * TRANSACTION_FEE) 
-        }
-    }
-
-    const calculateProfit = (): number => {
-        return parseFloat(marketPrice) - materialCost - calculateTax();
-    }
-
     const [materialCost, setMaterialCost] = useState<number>(0);
     const [marketPrice, setMarketPrice] = useState<string>(currentRow.marketPrice.toString());
 
     const handleMarketPrice = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setMarketPrice(event.currentTarget.value);
+        const newMarketPrice = event.currentTarget.value;
+        setMarketPrice(newMarketPrice);
+        debounceUpdateMarketPrice(newMarketPrice);
     }
+
+    const updateMarketPrice = (newMarketPrice: string) => {
+        setCurrentRow((oldCurrentRow) => {
+            return {
+                ...oldCurrentRow,
+                marketPrice: parseFloat(newMarketPrice)
+            }
+        })
+    }
+
+    const debounceUpdateMarketPrice = useCallback(debounce(updateMarketPrice, 500), [setCurrentRow]);
 
     /**
      * Taken from 
@@ -75,7 +77,7 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
     }
 
     const handleProfitColor = () => {
-        const profit = calculateProfit()
+        const profit = calculateProfit(currentRow.marketPrice, materialCost)
         const MIN_GREEN_COLOR = 0.325;
         const MIN_RED_COLOR = 0.90;
         const PROFIT_FOR_MAX_GREEN = 1000;
@@ -93,7 +95,7 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
             case (profit < 0): 
                 return {
                     backgroundColor: getColor(MIN_RED_COLOR + 
-                            Math.min(MIN_RED_COLOR, -1 * profit / PROFIT_FOR_MAX_RED))
+                            Math.min(1 - MIN_RED_COLOR, -1 * profit / PROFIT_FOR_MAX_RED))
                 }
             default: 
                 return {
@@ -141,14 +143,14 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
                 className="tax"
                 title={`ceil(0.05 * ${marketPrice}) unless marketPrice is 1, then it is 0.`}
             >
-                {calculateTax().toString()}
+                {calculateTax(currentRow.marketPrice).toString()}
             </td>
             <td >   
                 <div 
                     className="profit"
                     style={handleProfitColor()}
                 >
-                    {calculateProfit().toString()}
+                    {calculateProfit(currentRow.marketPrice, materialCost).toString()}
                 </div>
             </td>
             <td>

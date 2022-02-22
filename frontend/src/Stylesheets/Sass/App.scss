@@ -28,6 +28,16 @@
     color: rgb(22, 101, 153);
 }
 
+button {
+    background-color: rgb(33, 149, 226);
+    color: white;
+    opacity: 0.85;
+}
+
+button:hover {
+    opacity: 1;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -56,12 +66,8 @@ textarea {
     background-color: rgb(245, 245, 245);
 }
 
-.recipeTable > tbody > tr {
-    opacity: 0.95;
-}
-
 .recipeTable > tbody > tr:hover {
-    opacity: 1;
+    background-color: rgb(231, 231, 231);
 }
 
 td.recipeTable {
@@ -91,26 +97,25 @@ td.recipeTable {
 }
 
 .materialsTable > thead {
-    background-color:rgb(22, 101, 153);
+    background-color: rgb(33, 149, 226);
     color: white;
 }
 
 .materialsName {
-    @include noBorderOutline();
+    max-width: 8.75rem;
 }
 
 .materialsQuantity {
     @include noBorderOutline();
-    width: 4rem;
+    max-width: 4rem;
 }
 
 .materialsPrice {
     @include noBorderOutline();
-    max-width: 6.2rem;
+    max-width: 6.25rem;
 }
 
 .materialsAddNewRowBtn {
-    color: rgb(43, 138, 201);
     width: 100%;
     @include noBorderOutline();
     font-weight: bold;
@@ -119,7 +124,6 @@ td.recipeTable {
 
 .materialsRowDeletebtn {
     @include noBorderOutline();
-    background-color: inherit;
 }
 
 .materialsCost {
@@ -135,8 +139,11 @@ td.recipeTable {
     @include centerTextAndColor(green);
     @include noBorderOutline();
     width: 90%;
-    border-bottom: 1px solid black;
     background-color: inherit;
+}
+
+.marketPrice input:focus, .marketPrice input:hover {
+    border-bottom: 1px solid black;
 }
 
 .tax {
@@ -158,5 +165,6 @@ td.recipeTable {
 }
 
 .deletebtn {
-    color: rgb(250, 34, 34);
+    background-color: rgb(245, 61, 61);;
+    color: white;
 }

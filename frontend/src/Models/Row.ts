@@ -34,3 +34,9 @@ export const isMaterialRow = (object: any): object is MaterialRow => {
         "price" in object && 
         "id" in object;
 }
+
+export const calculateMaterialCost = (items: MaterialRows): number => {
+    return items.reduce((total, row) => {
+        return total + (row.price * row.quantity);
+    }, 0)
+}
