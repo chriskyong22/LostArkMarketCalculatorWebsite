@@ -53,9 +53,16 @@ textarea {
     margin: 0 auto;
 }
 
+
 .recipeTable > thead {
     background-color:rgb(100, 216, 106);
     color: white;
+}
+
+.recipeTable > thead > tr:first-child > th {
+    background-color: rgb(245, 61, 61);
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .recipeTable > thead > tr > th {

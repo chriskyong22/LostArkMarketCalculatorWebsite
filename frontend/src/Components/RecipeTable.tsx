@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react"
-import { MemoTableRow } from "./TableRow"
-import { Row } from "../Models/Row"
-import { calculateMaterialCost } from "../Utilities/ItemCalculations"
+import { MemoRecipeTableRow } from "./RecipeTableRow"
+import { Row, Table } from "../Models/Row"
+import { calculateMaterialCost, calculateProfit } from "../Utilities/ItemCalculations"
 import { v4 as uuidv4 } from "uuid"
 import { exportRows, importRows } from "../Utilities/ImportExport"
+import { updateTable } from "../Services/Database"
 
-export const Table = () => {
+interface TableProps {
+    table: Table;
+}
 
-    const [rows, setRows] = useState<Row[]>([]);
+export const RecipeTable: React.FC<TableProps> = ({table}) => {
+
+    const [rows, setRows] = useState<Row[]>(table.rows);
 
     useEffect(() => {
-        // Retrieve from indexeddb and set the rows
-    }, [])
+        // Can cause the category name and category show to go out of sync
+        updateTable({
+            ...table,
+            rows: rows
+        })
+    }, [rows])
 
     const handleAddNewRow = () => {
         setRows((oldRows) => {
@@ -74,6 +83,25 @@ export const Table = () => {
         })
     }
 
+    const sortByProfit = () => {
+        console.log("Sort by Profit")
+        setRows((oldRows) => {
+            let sortedRows = [...oldRows]
+            sortedRows.sort((row1: Row, row2: Row) => {
+                const row1Profit = calculateProfit(row1.marketPrice, calculateMaterialCost(row1.materials))
+                const row2Profit = calculateProfit(row2.marketPrice, calculateMaterialCost(row2.materials))
+                if (row1Profit < row2Profit) {
+                    return -1;
+                } else if (row1Profit > row2Profit) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+            return sortedRows;
+        })
+    }
+
     const sortByMaterialCost = () => {
         console.log("Sorting by Material Cost");
         setRows((oldRows) => {
@@ -113,6 +141,11 @@ export const Table = () => {
         <table className="recipeTable">
             <thead>
                 <tr>
+                    <th colSpan={7}>
+                        {table.category}
+                    </th> 
+                </tr>
+                <tr>
                     <th
                         onClick={sortByRecipeName}
                     >
@@ -134,7 +167,9 @@ export const Table = () => {
                     <th>
                         Tax
                     </th>
-                    <th>
+                    <th
+                        onClick={sortByProfit}
+                    >
                         Profit
                     </th>
                     <th>
@@ -145,7 +180,7 @@ export const Table = () => {
             <tbody>
                 {rows.map((row) => { 
                     return row.show 
-                        ? <MemoTableRow
+                        ? <MemoRecipeTableRow
                             key={row.id}
                             initialRowState={row}
                             setRows={setRows} 

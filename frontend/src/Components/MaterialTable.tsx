@@ -74,22 +74,33 @@ export const MaterialTable: React.FC<MaterialTableProps> = ({setMaterials, setMa
             <thead
                 onClick={toggleShowItems}
             >
-                <tr>
-                    <th>
-                        Item Name
-                    </th>
-                    <th>
-                        Quantity
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th
-                        title={showItems ? "Hide Items" : "Show Items"}
-                    >
-                        {showItems ? "-" : "+"}
-                    </th>
-                </tr>
+                {
+                    showItems 
+                    ? <tr>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th
+                            title={"Hide Items"}
+                        >
+                            {"-"}
+                        </th>
+                    </tr>
+                    : <tr>
+                        <th 
+                            colSpan={4}
+                            title={"Show Items"}
+                        >
+                            Show Items
+                        </th>
+                    </tr>
+                }
             </thead>
             <tbody>
                 { showItems && 

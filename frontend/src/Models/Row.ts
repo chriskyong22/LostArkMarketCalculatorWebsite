@@ -8,6 +8,12 @@ export interface MaterialRow {
 
 export type MaterialRows = MaterialRow[];
 
+export interface Table {
+    category: string;
+    showCategory: boolean;
+    rows: Row[];
+}
+
 export interface Row {
     recipeName: string;
     materials: MaterialRows;
@@ -15,6 +21,14 @@ export interface Row {
     tax?: number;
     show: boolean; 
     readonly id: string;
+}
+
+export const isTable = (object: any): object is Table => {
+    return "category" in object && 
+        "rows" in object && 
+        object["rows"].reduce((isValid: boolean, row: Row) => {
+            return isValid && isRow(row);
+        }, true);
 }
 
 export const isRow = (object: any): object is Row => { 
@@ -33,10 +47,4 @@ export const isMaterialRow = (object: any): object is MaterialRow => {
         "quantity" in object && 
         "price" in object && 
         "id" in object;
-}
-
-export const calculateMaterialCost = (items: MaterialRows): number => {
-    return items.reduce((total, row) => {
-        return total + (row.price * row.quantity);
-    }, 0)
 }

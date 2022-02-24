@@ -11,7 +11,7 @@ interface TableRowProps {
     setRows: React.Dispatch<React.SetStateAction<Row[]>>;
 }
 
-export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) => {
+export const RecipeTableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) => {
     
     const [currentRow, setCurrentRow] = useState<Row>(initialRowState);
     
@@ -176,4 +176,4 @@ export const TableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) =>
     ) 
 }
 
-export const MemoTableRow = React.memo(TableRow);
+export const MemoRecipeTableRow = React.memo(RecipeTableRow);

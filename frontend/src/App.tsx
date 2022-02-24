@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './Stylesheets/Public/App.css';
-import { Table } from "./Components/Table"
+import { Categories } from "./Components/Categories"
 
 function App() {
   return (
@@ -11,8 +11,7 @@ function App() {
           Market Calculator
         </h1>
       </header>
-      <Table
-      />
+      <Categories/>
     </div>
   );
 }

@@ -72,7 +72,7 @@ export const importRows = (callback: (...args: any) => void) => {
                 if (isValidRowObject) {
                     callback(object)
                 } else {
-                    throw new Error;
+                    throw new Error();
                 }
             } catch (error) {
                 console.log("Invalid File");
