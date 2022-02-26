@@ -15,9 +15,12 @@ export const Categories = () => {
     }, [])
 
     useEffect(function updateDatabase() {
-        tables.forEach((table) => {
-            updateTable(table);
-        })
+        tables.reduce((_oldTable, table) => {
+            updateTable(table).catch((error) => {
+                console.error(error);
+            })
+            return table;
+        }, {});
     }, [tables])
 
     const handleDeleteCategory = (category: string) => {

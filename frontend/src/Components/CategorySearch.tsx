@@ -79,20 +79,20 @@ export const CategorySearch: React.FC<CategorySearchProps> = ({ tables, setTable
                             return table;
                         }
                     
-                    }).map((table, idx) => {
+                    }).map((table) => {
                         return (
                             <div key={table.category + "-Search"}>
-                                <span
+                                <div
                                     draggable={true}
                                     style={table.showCategory ? {"color": "green"} : {"color": "red"}}
                                     onClick={() => toggleShow(table)}
                                     title={`Click to hide or show ${table.category}`}
-                                    onDragStart={() => handleDrag(table.category)}
-                                    onDrop={() => handleDrop(table.category)}
-                                    onDragOver={(event) => event.preventDefault()}
+                                    onDragStart={(event) => {event.stopPropagation(); handleDrag(table.category)}}
+                                    onDrop={(event) => {event.stopPropagation(); handleDrop(table.category)}}
+                                    onDragOver={(event) => {event.preventDefault(); return false;}}
                                 >
                                     {table.category}
-                                </span>
+                                </div>
                                 {/* <span> 
                                     &#129041; 
                                 </span>

@@ -1,6 +1,6 @@
-import react, { useState } from "react"
+import React, { useState } from "react"
 import { CategorySearch } from "./CategorySearch";
-import { getAllTables, addTable, updateTable, deleteTable } from "../Services/Database"
+import { addTable, updateTable } from "../Services/Database"
 import { RecipeTable } from "../Models/RecipeTable"
 
 interface CategoriesOptionsProps {
