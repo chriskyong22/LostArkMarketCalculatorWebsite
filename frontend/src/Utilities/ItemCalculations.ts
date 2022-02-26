@@ -1,4 +1,4 @@
-import { MaterialRows, Row } from "../Models/Row";
+import { MaterialRows } from "../Models/MaterialRow";
 
 export const calculateMaterialCost = (items: MaterialRows): number => {
     return items.reduce((total, row) => {

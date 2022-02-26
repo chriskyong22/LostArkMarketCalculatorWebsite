@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
-import { MaterialRows } from "../Models/Row"
+import { MaterialRows } from "../Models/MaterialRow"
 import { calculateMaterialCost } from "../Utilities/ItemCalculations"
 import { MaterialItemName } from "./MaterialItemName" 
 import { MaterialItemPriceAndQuantity } from "./MaterialItemPriceAndQuantity"
-import { Row } from "../Models/Row"
+import { RecipeRow } from "../Models/RecipeRow"
 import { v4 as uuidv4 } from "uuid"
 
 interface MaterialTableProps {
     setMaterialCost: React.Dispatch<React.SetStateAction<number>>;
     initialMaterials: MaterialRows;
-    setMaterials: React.Dispatch<React.SetStateAction<Row>>;
+    setMaterials: React.Dispatch<React.SetStateAction<RecipeRow>>;
     rowID: string;
 }
 

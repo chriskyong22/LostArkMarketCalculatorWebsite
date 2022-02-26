@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react"
 import { debounce } from "../Utilities/debounce"
-import { Row } from "../Models/Row"
+import { RecipeRow } from "../Models/RecipeRow"
 
 interface RecipeNameProps {
     initialName: string;
-    handleDataChange: React.Dispatch<React.SetStateAction<Row>>;
+    handleDataChange: React.Dispatch<React.SetStateAction<RecipeRow>>;
     rowID: string;
 }
 

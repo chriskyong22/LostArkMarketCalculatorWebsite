@@ -1,6 +1,6 @@
-import { Table } from "../Models/Row"
+import { RecipeTable } from "../Models/RecipeTable"
 
-export const ToolsCategory: Table = {
+export const ToolsCategory: RecipeTable = {
     category: "Tools",
     showCategory: true,
     rows: []

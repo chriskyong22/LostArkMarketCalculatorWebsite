@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react"
 import { MemoRecipeTableRow } from "./RecipeTableRow"
-import { Row, Table } from "../Models/Row"
+import { RecipeRow } from "../Models/RecipeRow"
+import { RecipeTable as RecipeTableModel } from "../Models/RecipeTable"
 import { calculateMaterialCost, calculateProfit } from "../Utilities/ItemCalculations"
 import { v4 as uuidv4 } from "uuid"
 import { exportRows, importRows } from "../Utilities/ImportExport"
 import { updateTable } from "../Services/Database"
 
 interface TableProps {
-    table: Table;
+    table: RecipeTableModel;
+    deleteCategory: (category: string) => void
+    hideCategory: (table: RecipeTableModel) => void
 }
 
-export const RecipeTable: React.FC<TableProps> = ({table}) => {
+export const RecipeTable: React.FC<TableProps> = ({table,  hideCategory, deleteCategory}) => {
 
-    const [rows, setRows] = useState<Row[]>(table.rows);
+    const [rows, setRows] = useState<RecipeRow[]>(table.rows);
 
     useEffect(() => {
         // Can cause the category name and category show to go out of sync
@@ -52,7 +55,7 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
 
     // TODO: handle duplicate imports (delete one of the duplicates)
     const handleImportRows = (): void => {
-        importRows((newRow: Row[]) => {
+        importRows((newRow: RecipeRow[]) => {
             setRows((oldRows) => {
                 return [
                     ...oldRows,
@@ -70,7 +73,7 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
         console.log("Sorting by Recipe Name");
         setRows((oldRows) => {
             let sortedRows = [...oldRows]
-            sortedRows.sort((row1: Row, row2: Row) => {
+            sortedRows.sort((row1: RecipeRow, row2: RecipeRow) => {
                 if (row1.recipeName < row2.recipeName) {
                     return -1
                 } else if (row1.recipeName > row2.recipeName) {
@@ -87,7 +90,7 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
         console.log("Sort by Profit")
         setRows((oldRows) => {
             let sortedRows = [...oldRows]
-            sortedRows.sort((row1: Row, row2: Row) => {
+            sortedRows.sort((row1: RecipeRow, row2: RecipeRow) => {
                 const row1Profit = calculateProfit(row1.marketPrice, calculateMaterialCost(row1.materials))
                 const row2Profit = calculateProfit(row2.marketPrice, calculateMaterialCost(row2.materials))
                 if (row1Profit < row2Profit) {
@@ -106,7 +109,7 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
         console.log("Sorting by Material Cost");
         setRows((oldRows) => {
             let sortedRows = [...oldRows]
-            sortedRows.sort((row1: Row, row2: Row) => {
+            sortedRows.sort((row1: RecipeRow, row2: RecipeRow) => {
                 const row1MaterialCost = calculateMaterialCost(row1.materials);
                 const row2MaterialCost = calculateMaterialCost(row2.materials);
                 if (row1MaterialCost < row2MaterialCost) {
@@ -124,7 +127,7 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
     const sortByMarketPrice = () => {
         setRows((oldRows) => {
             let sortedRows = [...oldRows]
-            sortedRows.sort((row1: Row, row2: Row) => {
+            sortedRows.sort((row1: RecipeRow, row2: RecipeRow) => {
                 if (row1.marketPrice < row2.marketPrice) {
                     return -1
                 } else if (row1.marketPrice > row2.marketPrice) {
@@ -211,9 +214,21 @@ export const RecipeTable: React.FC<TableProps> = ({table}) => {
                         >
                             Export All Recipes
                         </button>
+                        <button
+                            onClick={() => hideCategory(table)}
+                        >
+                            Hide Category 
+                        </button>
+                        <button
+                            onClick={() => deleteCategory(table.category)}
+                        >
+                            Delete Category 
+                        </button>
                     </td>
                 </tr>
             </tfoot>
         </table>
     )
 }
+
+export const MemoizedRecipeTable = React.memo(RecipeTable);

@@ -1,22 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { MaterialTable } from "./MaterialTable"
-import { Row } from "../Models/Row"
+import { RecipeRow } from "../Models/RecipeRow"
 import { MemoizedRecipeName } from "./RecipeName"
 import { debounce } from "../Utilities/debounce"
 import { exportRow } from "../Utilities/ImportExport"
 import { calculateProfit, calculateTax } from "../Utilities/ItemCalculations"
 
 interface TableRowProps {
-    initialRowState: Row;
-    setRows: React.Dispatch<React.SetStateAction<Row[]>>;
+    initialRowState: RecipeRow;
+    setRows: React.Dispatch<React.SetStateAction<RecipeRow[]>>;
 }
 
 export const RecipeTableRow: React.FC<TableRowProps> = ({initialRowState, setRows}) => {
     
-    const [currentRow, setCurrentRow] = useState<Row>(initialRowState);
+    const [currentRow, setCurrentRow] = useState<RecipeRow>(initialRowState);
     
     useEffect(function updateRow() {
-        console.log("Updating the rows");
         setRows((oldRows) => {
             return oldRows.map((row) => {
                 if (row.id === currentRow.id) {
@@ -25,7 +24,6 @@ export const RecipeTableRow: React.FC<TableRowProps> = ({initialRowState, setRow
                 return row;
             })
         })
-        // TODO: update the local database.
     }, [currentRow, setRows])
 
     const handleHide = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

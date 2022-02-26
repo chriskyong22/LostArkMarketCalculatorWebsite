@@ -1,4 +1,4 @@
-import { Row, isRow } from "../Models/Row"
+import { RecipeRow, isRecipeRow } from "../Models/RecipeRow"
 
 const generalExport = (payload: Blob, fileName: string) => {
     let element = document.createElement('a');
@@ -10,7 +10,7 @@ const generalExport = (payload: Blob, fileName: string) => {
     URL.revokeObjectURL(URI);
 }
 
-export const exportRow = (row: Row) => {
+export const exportRow = (row: RecipeRow) => {
     const JSONString = JSON.stringify([row], null, 4);
     const file = new Blob([JSONString], {type: "application/json"});
     generalExport(file, `${row.recipeName === '' 
@@ -18,7 +18,7 @@ export const exportRow = (row: Row) => {
                             : row.recipeName}.json`)
 }
 
-export const exportRows = (rows: Row[]) => {
+export const exportRows = (rows: RecipeRow[]) => {
     const JSONString = JSON.stringify(rows, null , 4);
     const file = new Blob([JSONString], {type: "application/json"});
     generalExport(file, 'recipes.json');
@@ -37,14 +37,14 @@ export const importRow = (callback: (...args: any) => void) => {
         let element = event.currentTarget as HTMLInputElement;
         if (element.files && element.files[0]) {
             const file = element.files[0];
-            let object: Row;
+            let object: RecipeRow;
             try {
                 object = JSON.parse(await file.text());
             } catch (error) {
                 console.error(error);
                 return;
             }
-            if (isRow(object)) {
+            if (isRecipeRow(object)) {
                 callback(object);
             } else {
                 console.log("Invalid File!")
@@ -58,7 +58,7 @@ export const importRows = (callback: (...args: any) => void) => {
         let element = event.currentTarget as HTMLInputElement;
         if (element.files && element.files[0]) {
             const file = element.files[0]
-            let object: Row[]
+            let object: RecipeRow[]
             try {
                 object = JSON.parse(await file.text());
             } catch (error) {
@@ -67,7 +67,7 @@ export const importRows = (callback: (...args: any) => void) => {
             }
             try {
                 const isValidRowObject = object.reduce((validRows, row) => {
-                    return validRows && isRow(row);
+                    return validRows && isRecipeRow(row);
                 }, true)
                 if (isValidRowObject) {
                     callback(object)

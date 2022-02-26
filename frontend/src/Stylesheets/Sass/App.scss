@@ -175,3 +175,28 @@ td.recipeTable {
     background-color: rgb(245, 61, 61);;
     color: white;
 }
+
+.categoriesOptionsContainer { 
+    display: flex;
+    flex-direction: column;
+    max-width: 15%;
+    left: 6px;
+    bottom: 12px;
+    position: fixed;
+
+}
+
+.categoriesOptionsSearchFilter {
+    overflow: auto;
+    scrollbar-width: thin;
+    max-height: 120px;
+}
+
+.categoriesOptionsBtnContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.categoriesOptionsHidebtn {
+    width: 100%;
+}

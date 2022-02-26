@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react"
-import { MaterialRows } from "../Models/Row"
+import { MaterialRows } from "../Models/MaterialRow"
 import { debounce } from "../Utilities/debounce"
 
 interface MaterialItemNameProps {
