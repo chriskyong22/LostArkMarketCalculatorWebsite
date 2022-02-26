@@ -61,17 +61,18 @@ export const CategoriesOptions: React.FC<CategoriesOptionsProps> = ({ tables, se
     }
 
     return (
-        <div className="categoriesOptionsContainer">
+        <>
           {
               showOptions &&             
-              <div>
-                <div>
+              <div className="categoriesOptionsContainer">
+                <div className="categoriesOptionAddContainer">
                     <input
                         placeholder="Category Name"
                         value={categoryName}
                         onChange={handleCategoryName}
                     />
                     <button
+                        className="categoriesOptionAddContainerBtn"
                         onClick={addCategory}
                     >
                         Add Category
@@ -81,7 +82,7 @@ export const CategoriesOptions: React.FC<CategoriesOptionsProps> = ({ tables, se
                     tables={tables}
                     setTables={setTables}
                 />
-                <div>
+                <div className="categoriesOptionsBtnContainer">
                     <button
                         onClick={showAllCategory}
                     >
@@ -90,7 +91,7 @@ export const CategoriesOptions: React.FC<CategoriesOptionsProps> = ({ tables, se
                     <button
                         onClick={hideAllCategory}
                     >
-                        Hide all Categories 
+                        Hide All Categories 
                     </button>
                 </div>
                 <button
@@ -103,12 +104,14 @@ export const CategoriesOptions: React.FC<CategoriesOptionsProps> = ({ tables, se
           }  
           {
               !showOptions && 
-              <button
-                onClick={toggleShowOptions}
-              >
-                  Show Options
-              </button>
+              <div className="categoriesOptionsContainer">
+                <button
+                    onClick={toggleShowOptions}
+                >
+                    Show Options
+                </button>
+              </div>
           }
-        </div>
+        </>
     )
 }

@@ -37,17 +37,40 @@ export const CategorySearch: React.FC<CategorySearchProps> = ({ tables, setTable
             })
     }
 
+    const [dragId, setDragId] = useState("");
+
+    const handleDrag = (category: string) => {
+        setDragId(category);
+    };
+    
+    const handleDrop = (category: string) => {
+        const dragTable = tables.find((table) => table.category === dragId);
+        const dropTable = tables.find((table) => table.category === category);
+
+        if (dragTable && dropTable) {
+            setTables((oldTables) => {
+                return oldTables.map((table) => {
+                    if (table.category === dragId) {
+                        return dropTable;
+                    } 
+                    if (table.category === category) {
+                        return dragTable;
+                    }
+                    return table;
+                })
+            })
+        }
+    };
+
     return (
-        <div>
+        <div className="categoriesOptionsSearchFilterContainer">
             <input 
+                className="categoriesOptionsSearchFilter"
                 onChange={handleSearch}
                 value={categorySearch}
-                placeholder="Category Name"
+                placeholder="Search for Category"
             />
-            <button>
-                Filter
-            </button>
-            <div className="categoriesOptionsSearchFilter">
+            <div className="categoriesOptionsSearchFilterResults">
                 {
                     tables.filter((table) => {
                         try {
@@ -56,16 +79,28 @@ export const CategorySearch: React.FC<CategorySearchProps> = ({ tables, setTable
                             return table;
                         }
                     
-                    }).map((table) => {
+                    }).map((table, idx) => {
                         return (
-                            <div
-                                key={table.category + "-Search"}
-                                style={table.showCategory ? {"color": "green"} : {"color": "red"}}
-                                onClick={() => toggleShow(table)}
-                                title={`Click to hide or show ${table.category}`}
-                            >
-                                {table.category}
-                            </div>)
+                            <div key={table.category + "-Search"}>
+                                <span
+                                    draggable={true}
+                                    style={table.showCategory ? {"color": "green"} : {"color": "red"}}
+                                    onClick={() => toggleShow(table)}
+                                    title={`Click to hide or show ${table.category}`}
+                                    onDragStart={() => handleDrag(table.category)}
+                                    onDrop={() => handleDrop(table.category)}
+                                    onDragOver={(event) => event.preventDefault()}
+                                >
+                                    {table.category}
+                                </span>
+                                {/* <span> 
+                                    &#129041; 
+                                </span>
+                                <span> 
+                                    &#129043; 
+                                </span> */}
+                            </div>
+                        )
                     })
                 }
             </div>

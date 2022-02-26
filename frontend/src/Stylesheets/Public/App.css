@@ -172,13 +172,34 @@ td.recipeTable {
 .categoriesOptionsContainer {
   display: flex;
   flex-direction: column;
-  max-width: 15%;
-  left: 6px;
-  bottom: 12px;
+  max-width: 13.5%;
+  left: 0.5rem;
+  bottom: 0.5rem;
   position: fixed;
+  background-color: #f7ffff;
+  gap: 0.15rem;
+}
+
+.categoriesOptionAddContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.categoriesOptionAddContainerBtn {
+  flex: 1 1;
+}
+
+.categoriesOptionsSearchFilterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .categoriesOptionsSearchFilter {
+  width: 100%;
+}
+
+.categoriesOptionsSearchFilterResults {
   overflow: auto;
   scrollbar-width: thin;
   max-height: 120px;
@@ -186,7 +207,7 @@ td.recipeTable {
 
 .categoriesOptionsBtnContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .categoriesOptionsHidebtn {
