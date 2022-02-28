@@ -83,10 +83,11 @@ export const CategorySearch: React.FC<CategorySearchProps> = ({ tables, setTable
                         return (
                             <div key={table.category + "-Search"}>
                                 <div
+                                    className="categoriesOptionCategoryName"
                                     draggable={true}
                                     style={table.showCategory ? {"color": "green"} : {"color": "red"}}
                                     onClick={() => toggleShow(table)}
-                                    title={`Click to hide or show ${table.category}`}
+                                    data-tooltip={`${table.showCategory ? "Hide" : "Show"}`}
                                     onDragStart={(event) => {event.stopPropagation(); handleDrag(table.category)}}
                                     onDrop={(event) => {event.stopPropagation(); handleDrop(table.category)}}
                                     onDragOver={(event) => {event.preventDefault(); return false;}}

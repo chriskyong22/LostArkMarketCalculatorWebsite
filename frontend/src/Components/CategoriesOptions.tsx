@@ -61,57 +61,57 @@ export const CategoriesOptions: React.FC<CategoriesOptionsProps> = ({ tables, se
     }
 
     return (
-        <>
+        <div className="categoriesOptionsContainer">
           {
-              showOptions &&             
-              <div className="categoriesOptionsContainer">
-                <div className="categoriesOptionAddContainer">
-                    <input
-                        placeholder="Category Name"
-                        value={categoryName}
-                        onChange={handleCategoryName}
+              showOptions &&
+              <div style={{"display": "contents"}}>             
+                <div className="categoriesOptionsContainer">
+                    <div className="categoriesOptionAddContainer">
+                        <input
+                            placeholder="Category Name"
+                            value={categoryName}
+                            onChange={handleCategoryName}
+                        />
+                        <button
+                            className="categoriesOptionAddContainerBtn"
+                            onClick={addCategory}
+                        >
+                            Add Category
+                        </button>
+                    </div>
+                    <CategorySearch
+                        tables={tables}
+                        setTables={setTables}
                     />
+                    <div className="categoriesOptionsBtnContainer">
+                        <button
+                            onClick={showAllCategory}
+                        >
+                            Show All Categories
+                        </button>
+                        <button
+                            onClick={hideAllCategory}
+                        >
+                            Hide All Categories 
+                        </button>
+                    </div>
                     <button
-                        className="categoriesOptionAddContainerBtn"
-                        onClick={addCategory}
+                        className="categoriesOptionsHidebtn"
+                        onClick={toggleShowOptions}
                     >
-                        Add Category
+                            Hide Options 
                     </button>
                 </div>
-                <CategorySearch
-                    tables={tables}
-                    setTables={setTables}
-                />
-                <div className="categoriesOptionsBtnContainer">
-                    <button
-                        onClick={showAllCategory}
-                    >
-                        Show All Categories
-                    </button>
-                    <button
-                        onClick={hideAllCategory}
-                    >
-                        Hide All Categories 
-                    </button>
-                </div>
-                <button
-                    className="categoriesOptionsHidebtn"
-                    onClick={toggleShowOptions}
-                >
-                        Hide Options 
-                </button>
             </div>
           }  
           {
               !showOptions && 
-              <div className="categoriesOptionsContainer">
                 <button
                     onClick={toggleShowOptions}
                 >
                     Show Options
                 </button>
-              </div>
-          }
-        </>
+            }
+        </div>
     )
 }

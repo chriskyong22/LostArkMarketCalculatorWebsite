@@ -220,3 +220,20 @@ td.recipeTable {
 .categoriesOptionsHidebtn {
     width: 100%;
 }
+
+.categoriesOptionCategoryName[data-tooltip] {
+    position: relative;
+}
+
+.categoriesOptionCategoryName[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    transform: scale(0);
+}
+
+.categoriesOptionCategoryName[data-tooltip]:hover::before {
+    position: relative;
+    color: black;
+    margin-right: 3px;
+    transform: scale(1);
+}
