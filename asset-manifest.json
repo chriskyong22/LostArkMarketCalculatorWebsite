@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/LostArkMarketCalculatorWebsite/static/css/main.b8295d9a.css",
-    "main.js": "/LostArkMarketCalculatorWebsite/static/js/main.46610aba.js",
+    "main.css": "/LostArkMarketCalculatorWebsite/static/css/main.df090ac0.css",
+    "main.js": "/LostArkMarketCalculatorWebsite/static/js/main.6a5bbd29.js",
     "static/js/787.cda612ba.chunk.js": "/LostArkMarketCalculatorWebsite/static/js/787.cda612ba.chunk.js",
     "index.html": "/LostArkMarketCalculatorWebsite/index.html",
-    "main.b8295d9a.css.map": "/LostArkMarketCalculatorWebsite/static/css/main.b8295d9a.css.map",
-    "main.46610aba.js.map": "/LostArkMarketCalculatorWebsite/static/js/main.46610aba.js.map",
+    "main.df090ac0.css.map": "/LostArkMarketCalculatorWebsite/static/css/main.df090ac0.css.map",
+    "main.6a5bbd29.js.map": "/LostArkMarketCalculatorWebsite/static/js/main.6a5bbd29.js.map",
     "787.cda612ba.chunk.js.map": "/LostArkMarketCalculatorWebsite/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b8295d9a.css",
-    "static/js/main.46610aba.js"
+    "static/css/main.df090ac0.css",
+    "static/js/main.6a5bbd29.js"
   ]
 }
